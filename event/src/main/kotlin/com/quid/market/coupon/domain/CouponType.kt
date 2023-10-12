@@ -1,4 +1,4 @@
-package com.quid.event.coupon.domain
+package com.quid.market.coupon.domain
 
 sealed interface CouponType {
     fun discount(origin: Int): Int

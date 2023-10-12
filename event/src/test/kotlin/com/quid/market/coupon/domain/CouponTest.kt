@@ -1,4 +1,4 @@
-package com.quid.event.coupon.domain
+package com.quid.market.coupon.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

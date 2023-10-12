@@ -1,4 +1,4 @@
-package com.quid.event
+package com.quid.market
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

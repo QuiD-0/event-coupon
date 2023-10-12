@@ -1,4 +1,4 @@
-package com.quid.event
+package com.quid.market
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

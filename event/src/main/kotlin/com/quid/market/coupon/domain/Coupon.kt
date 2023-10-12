@@ -1,4 +1,4 @@
-package com.quid.event.coupon.domain
+package com.quid.market.coupon.domain
 
 import java.time.LocalDate
 
