@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ./.idea/
-/infra/data/postgres/
+infra/data/postgres
