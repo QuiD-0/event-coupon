@@ -1,5 +1,6 @@
 package com.quid.market.event.domain
 
+import com.quid.market.coupon.domain.Coupon
 import java.time.LocalDateTime
 
 data class Event(
