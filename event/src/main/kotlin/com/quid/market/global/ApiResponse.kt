@@ -1,9 +1,11 @@
 package com.quid.market.global
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter.ofPattern
 
 sealed interface ApiResponse<RESPONSE> {
-    fun getTimeStamp(): LocalDateTime = LocalDateTime.now()
+    val timeStamp: String
+        get() = LocalDateTime.now().format(ofPattern("yyyy-MM-dd HH:mm:ss"))
 }
 
 data class Success<RESPONSE>(
