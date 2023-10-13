@@ -7,9 +7,9 @@ data class Coupon(
     val userId: Long,
     val couponName: String,
     val amount: CouponType,
-    val regDate: LocalDate,
     val expireDate: LocalDate,
-    val usedDate: LocalDate? = null
+    val usedDate: LocalDate? = null,
+    val regDate: LocalDate = LocalDate.now(),
     ) {
     val isUsed: Boolean
         get() = usedDate != null
