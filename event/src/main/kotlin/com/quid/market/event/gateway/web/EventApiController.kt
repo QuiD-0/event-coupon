@@ -9,15 +9,10 @@ import com.quid.market.event.usecase.AssignCoupon
 import com.quid.market.event.usecase.IssueEventCoupon
 import com.quid.market.event.usecase.RegistEvent
 import com.quid.market.global.ApiResponse
-import com.quid.market.global.Created
 import com.quid.market.global.Success
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatus.*
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus.CREATED
+import org.springframework.http.HttpStatus.OK
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/events")
@@ -28,14 +23,17 @@ class EventApiController(
 ) {
 
     @PostMapping
+    @ResponseStatus(CREATED)
     fun registEvent(@RequestBody request: RegistEventRequest): ApiResponse<Event> =
-        Created(registEvent.persist(request.toEvent()))
+        Success(registEvent.persist(request.toEvent()))
 
     @PostMapping("/coupon/assign")
+    @ResponseStatus(OK)
     fun assignCoupon(@RequestBody request: AssignCouponRequest): ApiResponse<Event> =
         Success(assignCoupon.execute(request.eventId, request.eventCoupon))
 
     @PostMapping("/coupon/issue")
+    @ResponseStatus(OK)
     fun issueCoupon(@RequestBody request: IssueCouponRequest): ApiResponse<UserCoupon> =
         Success(issueEventCoupon.execute(request.userId, request.eventId))
 
