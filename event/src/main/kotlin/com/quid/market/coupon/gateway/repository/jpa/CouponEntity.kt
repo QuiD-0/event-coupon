@@ -25,7 +25,7 @@ class CouponEntity(
     fun toCoupon() = Coupon(
         id = id,
         couponName = couponName,
-        amount = CouponType.of(type, value),
+        value = CouponType.of(type, value),
         expireDate = expireDate,
         regDate = regDate,
     )
@@ -34,8 +34,8 @@ class CouponEntity(
 fun CouponEntity(coupon: Coupon) = CouponEntity(
     id = coupon.id,
     couponName = coupon.couponName,
-    value = coupon.amount.value(),
-    type = coupon.amount.type(),
+    value = coupon.value.value(),
+    type = coupon.value.type(),
     expireDate = coupon.expireDate,
     regDate = coupon.regDate,
 )

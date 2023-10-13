@@ -5,7 +5,7 @@ import java.time.LocalDate
 data class Coupon(
     val id: Long? = null,
     val couponName: String,
-    val amount: CouponType,
+    val value: CouponType,
     val expireDate: LocalDate,
     val regDate: LocalDate = LocalDate.now(),
     ) {
@@ -16,5 +16,5 @@ data class Coupon(
         require(regDate.isBefore(expireDate)) { "regDate must be before expireDate" }
     }
 
-    fun discount(origin: Int): Int = amount.discount(origin)
+    fun discount(origin: Int): Int = value.discount(origin)
 }
