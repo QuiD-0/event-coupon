@@ -5,6 +5,9 @@ import com.quid.market.coupon.domain.UserCoupon
 import com.quid.market.coupon.gateway.web.request.RegistCouponRequest
 import com.quid.market.coupon.usecase.FindUserCoupon
 import com.quid.market.coupon.usecase.RegistCoupon
+import com.quid.market.global.ApiResponse
+import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,11 +23,13 @@ class CouponApiRepository(
 ) {
 
     @PostMapping
-    fun registCoupon(@RequestBody request: RegistCouponRequest): Coupon =
+    fun registCoupon(@RequestBody request: RegistCouponRequest): ApiResponse<Coupon> =
         registCoupon.execute(request.coupon)
+            .let { ApiResponse.Success(it, CREATED) }
 
     @GetMapping("/user/{userId}")
-    fun getCouponByUserId(@PathVariable userId: Long): List<UserCoupon> =
+    fun getCouponByUserId(@PathVariable userId: Long): ApiResponse<List<UserCoupon>> =
         findUserCoupon.byUserId(userId)
+            .let { ApiResponse.Success(it, HttpStatus.OK) }
 
 }
