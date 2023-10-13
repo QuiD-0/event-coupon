@@ -11,5 +11,5 @@ data class Success<RESPONSE>(
 ) : ApiResponse<RESPONSE>
 
 data class Error<ERROR>(
-    val message: String? = "Unknown Error",
+    val message: String,
 ) : ApiResponse<ERROR>
