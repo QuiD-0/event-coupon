@@ -1,4 +1,4 @@
-package com.quid.market.coupon.gateway.web
+package com.quid.market.coupon.gateway.web.request
 
 import com.quid.market.coupon.domain.Coupon
 import com.quid.market.coupon.domain.CouponType
@@ -13,7 +13,7 @@ data class RegistCouponRequest(
     val coupon: Coupon
         get() = Coupon(
             couponName = couponName,
-            amount = CouponType.of(type, amount),
+            value = CouponType.of(type, amount),
             expireDate = expireDate,
         )
 }

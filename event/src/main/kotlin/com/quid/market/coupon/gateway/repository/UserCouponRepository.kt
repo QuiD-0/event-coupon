@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository
 
 interface UserCouponRepository {
     fun save(userCoupon: UserCoupon): UserCoupon
+    fun findByUserId(userId: Long): List<UserCoupon>
 
     @Repository
     class UserCouponRepositoryImpl(
@@ -14,5 +15,9 @@ interface UserCouponRepository {
     ): UserCouponRepository {
         override fun save(userCoupon: UserCoupon): UserCoupon =
             userCouponJpaRepository.save(UserCouponEntity(userCoupon)).toUserCoupon()
+
+        override fun findByUserId(userId: Long) =
+            userCouponJpaRepository.findByUserId(userId)
+                .map { it.toUserCoupon() }
     }
 }

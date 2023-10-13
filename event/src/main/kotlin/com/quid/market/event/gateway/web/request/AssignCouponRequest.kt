@@ -15,7 +15,7 @@ data class AssignCouponRequest(
     val coupon: Coupon
         get() = Coupon(
             couponName = couponName,
-            amount = CouponType.of(type, amount),
+            value = CouponType.of(type, amount),
             expireDate = expireDate
         )
 }
