@@ -9,6 +9,6 @@ class ErrorHandling {
 
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ApiResponse<String> =
-        ApiResponse.Error(e.message ?: "Unknown Error", HttpStatus.INTERNAL_SERVER_ERROR)
+        Error(e.message ?: "Unknown Error", HttpStatus.INTERNAL_SERVER_ERROR)
 
 }

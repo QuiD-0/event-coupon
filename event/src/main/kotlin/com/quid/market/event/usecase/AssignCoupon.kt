@@ -9,16 +9,16 @@ import org.springframework.transaction.annotation.Transactional
 
 interface AssignCoupon {
 
-    fun execute(eventId: Long, coupon: Coupon, count: Int): Event
+    fun execute(eventId: Long, eventCoupon: EventCoupon): Event
 
     @Service
     @Transactional
     class AssignCouponImpl(
         val eventRepository: EventRepository,
     ) : AssignCoupon {
-        override fun execute(eventId: Long, coupon: Coupon, count: Int): Event =
+        override fun execute(eventId: Long, eventCoupon: EventCoupon): Event =
             eventRepository.findById(eventId)
-                .assignCoupon(EventCoupon(count, coupon))
+                .assignCoupon(eventCoupon)
                 .let { eventRepository.save(it) }
     }
 }
