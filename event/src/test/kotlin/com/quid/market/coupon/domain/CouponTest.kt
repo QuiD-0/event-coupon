@@ -13,7 +13,6 @@ class CouponTest {
     @DisplayName("쿠폰 할인 테스트")
     fun typeTest() {
         val fixCoupon = Coupon(
-            userId = 1L,
             couponName = "FixedAmountCoupon",
             amount = FixedAmountCoupon(1000),
             regDate = LocalDate.now(),
@@ -21,7 +20,6 @@ class CouponTest {
         )
 
         val percentageCoupon = Coupon(
-            userId = 1L,
             couponName = "PercentageCoupon",
             amount = PercentageCoupon(20),
             regDate = LocalDate.now(),
@@ -36,7 +34,6 @@ class CouponTest {
     @DisplayName("쿠폰 만료일이 지났을 경우")
     fun expiredTest() {
         val coupon = Coupon(
-            userId = 1L,
             couponName = "FixedAmountCoupon",
             amount = FixedAmountCoupon(1000),
             regDate = LocalDate.now().minusDays(7),
@@ -51,7 +48,6 @@ class CouponTest {
     fun makeCouponFail() {
         assertThrows<IllegalArgumentException> {
             Coupon(
-                userId = 1L,
                 couponName = "FixedAmountCoupon",
                 amount = FixedAmountCoupon(1000),
                 regDate = LocalDate.now(),
@@ -60,19 +56,4 @@ class CouponTest {
         }
     }
 
-    @Test
-    @DisplayName("쿠폰 사용 테스트")
-    fun useCouponTest() {
-        val coupon = Coupon(
-            userId = 1L,
-            couponName = "FixedAmountCoupon",
-            amount = FixedAmountCoupon(1000),
-            regDate = LocalDate.now(),
-            expireDate = LocalDate.now().plusDays(7)
-        )
-
-        val useCoupon = coupon.useCoupon()
-
-        assertTrue(useCoupon.isUsed)
-    }
 }
