@@ -29,14 +29,14 @@ class EventApiController(
 
     @PostMapping
     fun registEvent(@RequestBody request: RegistEventRequest): ApiResponse<Event> =
-        Created(data = registEvent.persist(request.toEvent()))
+        Created(registEvent.persist(request.toEvent()))
 
     @PostMapping("/coupon/assign")
     fun assignCoupon(@RequestBody request: AssignCouponRequest): ApiResponse<Event> =
-        Success(data = assignCoupon.execute(request.eventId, request.eventCoupon))
+        Success(assignCoupon.execute(request.eventId, request.eventCoupon))
 
     @PostMapping("/coupon/issue")
     fun issueCoupon(@RequestBody request: IssueCouponRequest): ApiResponse<UserCoupon> =
-        Success(data = issueEventCoupon.execute(request.userId, request.eventId))
+        Success(issueEventCoupon.execute(request.userId, request.eventId))
 
 }

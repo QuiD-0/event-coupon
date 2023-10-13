@@ -21,10 +21,10 @@ class CouponApiRepository(
 
     @PostMapping
     fun registCoupon(@RequestBody request: RegistCouponRequest): ApiResponse<Coupon> =
-        Created(data = registCoupon.execute(request.coupon))
+        Created(registCoupon.execute(request.coupon))
 
     @GetMapping("/user/{userId}")
     fun getCouponByUserId(@PathVariable userId: Long): ApiResponse<List<UserCoupon>> =
-        Success(data = findUserCoupon.byUserId(userId))
+        Success(findUserCoupon.byUserId(userId))
 
 }
