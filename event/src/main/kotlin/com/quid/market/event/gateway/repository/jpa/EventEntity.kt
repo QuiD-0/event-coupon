@@ -2,7 +2,7 @@ package com.quid.market.event.gateway.repository.jpa
 
 import com.quid.market.coupon.gateway.repository.jpa.CouponEntity
 import com.quid.market.event.domain.Event
-import com.quid.market.event.domain.RemainCoupon
+import com.quid.market.event.domain.EventCoupon
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.persistence.CascadeType.MERGE
@@ -31,7 +31,7 @@ class EventEntity(
         eventStartDate = eventStartDate,
         eventEndDate = eventEndDate,
         regDate = regDate,
-        remainCoupon = RemainCoupon(couponCount, coupon?.toCoupon()),
+        eventCoupon = EventCoupon(couponCount, coupon?.toCoupon()),
     )
 }
 
@@ -42,6 +42,6 @@ fun EventEntity(event: Event) = EventEntity(
     eventStartDate = event.eventStartDate,
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
-    couponCount = event.remainCoupon.count,
-    coupon = event.remainCoupon.coupon?.let { CouponEntity(it) },
+    couponCount = event.eventCoupon.count,
+    coupon = event.eventCoupon.coupon?.let { CouponEntity(it) },
 )

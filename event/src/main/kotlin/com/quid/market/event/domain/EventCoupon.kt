@@ -2,7 +2,7 @@ package com.quid.market.event.domain
 
 import com.quid.market.coupon.domain.Coupon
 
-data class RemainCoupon(
+data class EventCoupon(
     val count: Int = 0,
     val coupon: Coupon? = null,
 ) {
@@ -13,7 +13,7 @@ data class RemainCoupon(
         require(count >= 0) { "쿠폰이 모두 발급되었습니다." }
     }
 
-    fun decrease(): RemainCoupon {
+    fun decrease(): EventCoupon {
         return this.copy(count = count - 1)
     }
 }

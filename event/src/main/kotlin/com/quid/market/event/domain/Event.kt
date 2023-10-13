@@ -1,6 +1,5 @@
 package com.quid.market.event.domain
 
-import com.quid.market.coupon.domain.Coupon
 import java.time.LocalDateTime
 
 data class Event(
@@ -9,7 +8,7 @@ data class Event(
     val description: String,
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
-    val remainCoupon: RemainCoupon = RemainCoupon(),
+    val eventCoupon: EventCoupon = EventCoupon(),
     val regDate: LocalDateTime = LocalDateTime.now(),
 ) {
     init {
@@ -17,11 +16,11 @@ data class Event(
     }
 
     fun issueCoupon(): Event {
-        require(remainCoupon.isAssigned) { "등록된 쿠폰이 없습니다." }
-        return this.copy(remainCoupon = remainCoupon.decrease())
+        require(eventCoupon.isAssigned) { "등록된 쿠폰이 없습니다." }
+        return this.copy(eventCoupon = eventCoupon.decrease())
     }
 
-    fun assignCoupon(coupon: RemainCoupon): Event {
-        return this.copy(remainCoupon = coupon)
+    fun assignCoupon(coupon: EventCoupon): Event {
+        return this.copy(eventCoupon = coupon)
     }
 }

@@ -17,7 +17,7 @@ interface IssueEventCoupon {
         override fun execute(userId: Long, eventId: Long): UserCoupon =
             eventRepository.findById(eventId).issueCoupon()
                 .also { eventRepository.save(it) }
-                .let { UserCoupon(userId = userId, coupon = it.remainCoupon.coupon!!) }
+                .let { UserCoupon(userId = userId, coupon = it.eventCoupon.coupon!!) }
                 .let { userCouponRepository.save(it) }
     }
 }
