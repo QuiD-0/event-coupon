@@ -17,7 +17,7 @@ interface CouponRepository {
         override fun findById(couponId: Long): Coupon =
             couponJpaRepository.findByIdOrNull(couponId)
                 ?.toCoupon()
-                ?: throw RuntimeException("Coupon not found")
+                ?: throw NoSuchElementException("Coupon not found")
 
         override fun save(coupon: Coupon): Coupon =
             couponJpaRepository.save(CouponEntity(coupon))

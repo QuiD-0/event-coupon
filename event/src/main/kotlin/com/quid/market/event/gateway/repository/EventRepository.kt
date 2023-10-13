@@ -6,6 +6,7 @@ import com.quid.market.event.gateway.repository.jpa.EventJpaRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import java.lang.RuntimeException
+import java.util.NoSuchElementException
 
 interface EventRepository {
 
@@ -22,6 +23,6 @@ interface EventRepository {
         override fun findById(eventId: Long): Event =
             eventJpaRepository.findByIdOrNull(eventId)
                 ?.toEvent()
-                ?: throw RuntimeException("Event not found")
+                ?: throw NoSuchElementException("Event not found")
     }
 }

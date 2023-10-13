@@ -1,7 +1,5 @@
 package com.quid.market.global
 
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatus.*
 import java.time.LocalDateTime
 
 sealed interface ApiResponse<RESPONSE> {
@@ -13,5 +11,5 @@ data class Success<RESPONSE>(
 ) : ApiResponse<RESPONSE>
 
 data class Error<ERROR>(
-    val message: String
+    val message: String? = "Unknown Error",
 ) : ApiResponse<ERROR>
