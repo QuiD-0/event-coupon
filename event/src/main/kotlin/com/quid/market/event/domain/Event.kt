@@ -8,7 +8,7 @@ data class Event(
     val description: String,
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
-    val coupon: RemainCoupon = RemainCoupon(),
+    val remainCoupon: RemainCoupon = RemainCoupon(),
     val regDate: LocalDateTime = LocalDateTime.now(),
 ) {
     init {
@@ -16,11 +16,11 @@ data class Event(
     }
 
     fun issueCoupon(): Event {
-        require(coupon.isAssigned) { "등록된 쿠폰이 없습니다." }
-        return this.copy(coupon = coupon.decrease())
+        require(remainCoupon.isAssigned) { "등록된 쿠폰이 없습니다." }
+        return this.copy(remainCoupon = remainCoupon.decrease())
     }
 
     fun assignCoupon(coupon: RemainCoupon): Event {
-        return this.copy(coupon = coupon)
+        return this.copy(remainCoupon = coupon)
     }
 }

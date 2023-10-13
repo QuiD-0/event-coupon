@@ -5,6 +5,8 @@ import com.quid.market.event.domain.Event
 import com.quid.market.event.domain.RemainCoupon
 import java.time.LocalDateTime
 import javax.persistence.*
+import javax.persistence.CascadeType.MERGE
+import javax.persistence.CascadeType.PERSIST
 
 @Entity
 @Table(name = "event")
@@ -18,7 +20,7 @@ class EventEntity(
     val eventEndDate: LocalDateTime,
     val regDate: LocalDateTime,
     val couponCount: Int,
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [PERSIST, MERGE])
     val coupon: CouponEntity? = null,
 ) {
 
@@ -29,7 +31,7 @@ class EventEntity(
         eventStartDate = eventStartDate,
         eventEndDate = eventEndDate,
         regDate = regDate,
-        coupon = RemainCoupon(couponCount, coupon?.toCoupon()),
+        remainCoupon = RemainCoupon(couponCount, coupon?.toCoupon()),
     )
 }
 
@@ -40,6 +42,6 @@ fun EventEntity(event: Event) = EventEntity(
     eventStartDate = event.eventStartDate,
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
-    couponCount = event.coupon.count,
-    coupon = event.coupon.coupon?.let { CouponEntity(it) },
+    couponCount = event.remainCoupon.count,
+    coupon = event.remainCoupon.coupon?.let { CouponEntity(it) },
 )
