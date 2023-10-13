@@ -17,14 +17,13 @@ class ErrorHandling {
         return ResponseEntity(Error(message), statusCode)
     }
 
-    private fun determineStatusCode(ex: Exception): HttpStatus {
-        return when (ex) {
+    private fun determineStatusCode(ex: Exception): HttpStatus =
+        when (ex) {
             is IllegalArgumentException -> BAD_REQUEST
             is NoSuchElementException -> NOT_FOUND
             is IllegalStateException -> CONFLICT
             is RuntimeException -> INTERNAL_SERVER_ERROR
             else -> INTERNAL_SERVER_ERROR
         }
-    }
 
 }
