@@ -5,7 +5,7 @@ import com.quid.market.coupon.gateway.repository.CouponRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-interface RegistCoupon {
+fun interface RegistCoupon {
     fun execute(coupon: Coupon): Coupon
 
     @Service
