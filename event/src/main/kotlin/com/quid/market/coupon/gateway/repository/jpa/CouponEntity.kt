@@ -31,7 +31,7 @@ class CouponEntity(
     )
 }
 
-fun CouponEntity(coupon: Coupon) = CouponEntity(
+fun toCouponEntity(coupon: Coupon) = CouponEntity(
     id = coupon.id,
     couponName = coupon.couponName,
     value = coupon.value.value(),

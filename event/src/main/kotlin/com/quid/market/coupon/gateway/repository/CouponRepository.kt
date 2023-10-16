@@ -1,8 +1,8 @@
 package com.quid.market.coupon.gateway.repository
 
 import com.quid.market.coupon.domain.Coupon
-import com.quid.market.coupon.gateway.repository.jpa.CouponEntity
 import com.quid.market.coupon.gateway.repository.jpa.CouponJpaRepository
+import com.quid.market.coupon.gateway.repository.jpa.toCouponEntity
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
@@ -20,7 +20,7 @@ interface CouponRepository {
                 ?: throw NoSuchElementException("Coupon not found")
 
         override fun save(coupon: Coupon): Coupon =
-            couponJpaRepository.save(CouponEntity(coupon))
+            couponJpaRepository.save(toCouponEntity(coupon))
                 .toCoupon()
     }
 }

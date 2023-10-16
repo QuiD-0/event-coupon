@@ -3,6 +3,7 @@ package com.quid.market.event.gateway.repository
 import com.quid.market.event.domain.Event
 import com.quid.market.event.gateway.repository.jpa.EventEntity
 import com.quid.market.event.gateway.repository.jpa.EventJpaRepository
+import com.quid.market.event.gateway.repository.jpa.toEventEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -22,7 +23,7 @@ interface EventRepository {
         val eventJpaRepository: EventJpaRepository
     ) : EventRepository {
         override fun save(event: Event): Event =
-            eventJpaRepository.save(EventEntity(event))
+            eventJpaRepository.save(toEventEntity(event))
                 .toEvent()
 
         override fun findById(eventId: Long): Event =

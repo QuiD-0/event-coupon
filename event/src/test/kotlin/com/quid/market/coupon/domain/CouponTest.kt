@@ -14,14 +14,14 @@ class CouponTest {
     fun typeTest() {
         val fixCoupon = Coupon(
             couponName = "FixedAmountCoupon",
-            amount = FixedAmountCoupon(1000),
+            value = FixedAmountCoupon(1000),
             regDate = LocalDate.now(),
             expireDate = LocalDate.now().plusDays(7)
         )
 
         val percentageCoupon = Coupon(
             couponName = "PercentageCoupon",
-            amount = PercentageCoupon(20),
+            value = PercentageCoupon(20),
             regDate = LocalDate.now(),
             expireDate = LocalDate.now().plusDays(7)
         )
@@ -35,7 +35,7 @@ class CouponTest {
     fun expiredTest() {
         val coupon = Coupon(
             couponName = "FixedAmountCoupon",
-            amount = FixedAmountCoupon(1000),
+            value = FixedAmountCoupon(1000),
             regDate = LocalDate.now().minusDays(7),
             expireDate = LocalDate.now().minusDays(1)
         )
@@ -49,7 +49,7 @@ class CouponTest {
         assertThrows<IllegalArgumentException> {
             Coupon(
                 couponName = "FixedAmountCoupon",
-                amount = FixedAmountCoupon(1000),
+                value = FixedAmountCoupon(1000),
                 regDate = LocalDate.now(),
                 expireDate = LocalDate.now().minusDays(1)
             )

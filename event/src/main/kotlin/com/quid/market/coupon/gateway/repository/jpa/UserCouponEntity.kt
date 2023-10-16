@@ -32,7 +32,7 @@ class UserCouponEntity(
 fun UserCouponEntity(userCoupon: UserCoupon) = UserCouponEntity(
     id = userCoupon.id,
     userId = userCoupon.userId,
-    coupon = CouponEntity(userCoupon.coupon),
+    coupon = toCouponEntity(userCoupon.coupon),
     usedDate = userCoupon.usedDate,
     regDate = userCoupon.regDate,
 )

@@ -1,6 +1,7 @@
 package com.quid.market.event.gateway.repository.jpa
 
 import com.quid.market.coupon.gateway.repository.jpa.CouponEntity
+import com.quid.market.coupon.gateway.repository.jpa.toCouponEntity
 import com.quid.market.event.domain.Event
 import com.quid.market.event.domain.EventCoupon
 import java.time.LocalDateTime
@@ -35,7 +36,7 @@ class EventEntity(
     )
 }
 
-fun EventEntity(event: Event) = EventEntity(
+fun toEventEntity(event: Event) = EventEntity(
     id = event.id,
     eventName = event.eventName,
     description = event.description,
@@ -43,5 +44,5 @@ fun EventEntity(event: Event) = EventEntity(
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
     couponCount = event.eventCoupon.count,
-    coupon = event.eventCoupon.coupon?.let { CouponEntity(it) },
+    coupon = event.eventCoupon.coupon?.let { toCouponEntity(it) },
 )

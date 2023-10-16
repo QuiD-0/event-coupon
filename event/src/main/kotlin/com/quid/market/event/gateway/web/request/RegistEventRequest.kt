@@ -8,13 +8,11 @@ data class RegistEventRequest(
     val description: String,
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
-    ) {
-    fun toEvent(): Event {
-        return Event(
-            eventName = eventName,
-            description = description,
-            eventStartDate = eventStartDate,
-            eventEndDate = eventEndDate,
-        )
-    }
+) {
+    fun toEvent(): Event = Event(
+        eventName = eventName,
+        description = description,
+        eventStartDate = eventStartDate,
+        eventEndDate = eventEndDate
+    )
 }

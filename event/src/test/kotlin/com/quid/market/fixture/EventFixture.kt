@@ -11,12 +11,13 @@ class EventFixture {
 
     val event: Event
         get() = Event(
+            id = 1L,
             eventName = "이벤트",
             description = "이벤트 설명",
             eventStartDate = LocalDateTime.now().minusDays(7),
             eventEndDate = LocalDateTime.now().plusDays(7),
             eventCoupon = EventCoupon(
-                count = 10,
+                count = 100,
                 coupon = Coupon(
                     couponName = "쿠폰",
                     value = FixedAmountCoupon(1000),
