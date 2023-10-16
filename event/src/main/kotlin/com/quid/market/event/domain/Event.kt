@@ -17,6 +17,8 @@ data class Event(
 
     fun issueCoupon(): Event {
         require(eventCoupon.isAssigned) { "등록된 쿠폰이 없습니다." }
+        require( eventStartDate.isBefore(LocalDateTime.now()) ) { "이벤트가 시작되지 않았습니다." }
+        require( eventEndDate.isAfter(LocalDateTime.now()) ) { "이벤트가 종료되었습니다." }
         return this.copy(eventCoupon = eventCoupon.decrease())
     }
 

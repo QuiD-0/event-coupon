@@ -15,7 +15,8 @@ fun interface IssueEventCoupon {
         val userCouponRepository: UserCouponRepository,
     ) : IssueEventCoupon {
         override fun execute(userId: Long, eventId: Long): UserCoupon =
-            eventRepository.findById(eventId).issueCoupon()
+            eventRepository.findById(eventId)
+                .issueCoupon()
                 .also { eventRepository.save(it) }
                 .let { UserCoupon(userId = userId, coupon = it.eventCoupon.coupon!!) }
                 .let { userCouponRepository.save(it) }
