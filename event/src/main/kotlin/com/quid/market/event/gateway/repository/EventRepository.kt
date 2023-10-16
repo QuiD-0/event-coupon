@@ -24,7 +24,7 @@ interface EventRepository {
                 .toEvent()
 
         override fun findById(eventId: Long): Event =
-            eventJpaRepository.findByIdOrNull(eventId)
+            eventJpaRepository.findByIdOrNullForUpdate(eventId)
                 ?.toEvent()
                 ?: throw NoSuchElementException("Event not found")
 

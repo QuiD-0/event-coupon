@@ -26,7 +26,7 @@ class IssueEventCouponTest{
         userCouponRepository.deleteAll()
         eventRepository.save(EventFixture().event)
 
-        val threadPool = Executors.newFixedThreadPool(10)
+        val threadPool = Executors.newFixedThreadPool(32)
         val latch = CountDownLatch(100)
 
         for(i in 1..100){
