@@ -15,6 +15,7 @@ interface EventRepository {
     fun save(event: Event): Event
     fun findById(eventId: Long): Event
     fun findAll(pageable: Pageable): Page<Event>
+    fun deleteAll()
 
     @Repository
     class EventRepositoryImpl(
@@ -32,5 +33,9 @@ interface EventRepository {
         override fun findAll(pageable: Pageable): Page<Event> =
             eventJpaRepository.findAll(pageable)
                 .map { it.toEvent() }
+
+        override fun deleteAll() {
+            eventJpaRepository.deleteAll()
+        }
     }
 }

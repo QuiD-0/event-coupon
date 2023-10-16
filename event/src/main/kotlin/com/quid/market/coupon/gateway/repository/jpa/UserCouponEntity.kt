@@ -7,7 +7,9 @@ import javax.persistence.FetchType.LAZY
 import javax.persistence.GenerationType.IDENTITY
 
 @Entity
-@Table(name = "user_coupon")
+@Table(name = "user_coupon", indexes = [
+    Index(name = "idx_user_coupon_id_user_id", columnList = "userId, coupon_id", unique = true),
+])
 class UserCouponEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
