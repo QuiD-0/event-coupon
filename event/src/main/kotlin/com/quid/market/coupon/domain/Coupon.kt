@@ -13,7 +13,7 @@ data class Coupon(
         get() = LocalDate.now().isAfter(expireDate)
 
     init {
-        require(regDate.isBefore(expireDate)) { "regDate must be before expireDate" }
+        require(regDate.isBefore(expireDate)) { "쿠폰의 만료일은 등록일보다 빠를 수 없습니다." }
     }
 
     fun discount(origin: Int): Int = value.discount(origin)

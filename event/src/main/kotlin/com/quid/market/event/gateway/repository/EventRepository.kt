@@ -1,15 +1,12 @@
 package com.quid.market.event.gateway.repository
 
 import com.quid.market.event.domain.Event
-import com.quid.market.event.gateway.repository.jpa.EventEntity
 import com.quid.market.event.gateway.repository.jpa.EventJpaRepository
 import com.quid.market.event.gateway.repository.jpa.toEventEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
-import java.lang.RuntimeException
-import java.util.NoSuchElementException
 
 interface EventRepository {
 

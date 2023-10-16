@@ -19,6 +19,7 @@ class EventFixture {
             eventCoupon = EventCoupon(
                 count = 100,
                 coupon = Coupon(
+                    id = 1L,
                     couponName = "쿠폰",
                     value = FixedAmountCoupon(1000),
                     expireDate = LocalDate.now().plusDays(7),
