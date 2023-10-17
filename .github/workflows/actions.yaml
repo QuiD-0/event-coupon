@@ -5,8 +5,11 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: List files in the repository
+        run: ls ${{ github.workspace }}
       - name: chmod
         run: chmod +x event/gradlew
       - name: build gradle
         run: event/gradlew build
-
