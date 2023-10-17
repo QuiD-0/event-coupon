@@ -11,5 +11,6 @@ jobs:
         run: ls ${{ github.workspace }}
       - name: chmod
         run: chmod +x event/gradlew
+      - run: cd event
       - name: build gradle
-        run: event/gradlew build
+        run: gradlew build
