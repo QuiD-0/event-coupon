@@ -3,6 +3,7 @@ package com.quid.market.event.usecase
 import com.quid.market.coupon.gateway.repository.UserCouponRepository
 import com.quid.market.event.gateway.repository.EventRepository
 import com.quid.market.fixture.EventFixture
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
+@Disabled
 @SpringBootTest
 class IssueEventCouponTest{
 

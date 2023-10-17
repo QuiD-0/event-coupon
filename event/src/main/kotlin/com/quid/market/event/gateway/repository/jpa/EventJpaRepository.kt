@@ -13,7 +13,6 @@ interface EventJpaRepository: JpaRepository<EventEntity, Long> {
     @Query("delete from EventEntity")
     override fun deleteAll()
 
-    @Transactional
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select e from EventEntity e where e.id = :eventId")
     fun findByIdOrNullForUpdate(eventId: Long): EventEntity?
