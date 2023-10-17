@@ -5,6 +5,8 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: chmod
+        run: chmod +x event/gradlew
       - name: build gradle
-        run: ./event/gradlew build
+        run: event/gradlew build
 
