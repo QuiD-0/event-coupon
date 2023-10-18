@@ -7,10 +7,22 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'gradle'
+
       - name: List files in the repository
         run: ls ${{ github.workspace }}
+
       - name: chmod
         run: chmod +x event/gradlew
-      - run: cd event
+
+      - name: change directory
+        run: cd event
+
       - name: Build with Gradle
         run : ./gradlew clean build
