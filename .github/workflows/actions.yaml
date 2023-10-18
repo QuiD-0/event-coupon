@@ -21,9 +21,5 @@ jobs:
       - name: chmod
         run: chmod +x event/gradlew
 
-      - name: change directory
-        run: cd event
-      - run: ls
-
       - name: Build with Gradle
-        run : ./gradlew clean build
+        run : ./event/gradlew clean build
