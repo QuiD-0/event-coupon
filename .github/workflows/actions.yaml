@@ -22,4 +22,7 @@ jobs:
         run: chmod +x event/gradlew
 
       - name: Build with Gradle
-        run : ./event/gradlew clean build
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: clean build
+          build-root-directory: ./event
