@@ -4,12 +4,14 @@ import com.quid.market.coupon.domain.UserCoupon
 import com.quid.market.coupon.gateway.repository.jpa.UserCouponEntity
 import com.quid.market.coupon.gateway.repository.jpa.UserCouponJpaRepository
 import com.quid.market.coupon.gateway.repository.jpa.toCouponEntity
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 interface UserCouponRepository {
     fun save(userCoupon: UserCoupon): UserCoupon
     fun findByUserId(userId: Long): List<UserCoupon>
     fun deleteAll()
+    fun findById(userCouponId: Long): UserCoupon
 
     @Repository
     class UserCouponRepositoryImpl(
@@ -27,5 +29,10 @@ interface UserCouponRepository {
         override fun deleteAll() {
             userCouponJpaRepository.deleteAll()
         }
+
+        override fun findById(userCouponId: Long): UserCoupon =
+            userCouponJpaRepository.findByIdOrNull(userCouponId)
+                ?.toUserCoupon()
+                ?: throw NoSuchElementException("쿠폰이 존재하지 않습니다.")
     }
 }

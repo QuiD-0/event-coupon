@@ -18,7 +18,7 @@ fun interface IssueEventCoupon {
 
         @Transactional
         override fun execute(userId: Long, eventId: Long): UserCoupon =
-            eventRepository.findById(eventId)
+            eventRepository.findByIdForUpdate(eventId)
                 .issueCoupon()
                 .also { eventRepository.save(it) }
                 .let { UserCoupon(userId = userId, coupon = it.eventCoupon.coupon!!) }

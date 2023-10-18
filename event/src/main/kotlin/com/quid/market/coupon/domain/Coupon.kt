@@ -16,5 +16,8 @@ data class Coupon(
         require(regDate.isBefore(expireDate)) { "쿠폰의 만료일은 등록일보다 빠를 수 없습니다." }
     }
 
-    fun discount(origin: Int): Int = value.discount(origin)
+    fun discount(origin: Int): Int {
+        require(!isExpired) { "쿠폰이 만료되었습니다." }
+        return value.discount(origin)
+    }
 }

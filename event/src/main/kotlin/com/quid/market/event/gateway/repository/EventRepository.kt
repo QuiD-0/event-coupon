@@ -12,6 +12,7 @@ interface EventRepository {
 
     fun save(event: Event): Event
     fun findById(eventId: Long): Event
+    fun findByIdForUpdate(eventId: Long): Event
     fun findAll(pageable: Pageable): Page<Event>
     fun deleteAll()
 
@@ -24,6 +25,11 @@ interface EventRepository {
                 .toEvent()
 
         override fun findById(eventId: Long): Event =
+            eventJpaRepository.findByIdOrNull(eventId)
+                ?.toEvent()
+                ?: throw NoSuchElementException("Event not found")
+
+        override fun findByIdForUpdate(eventId: Long): Event =
             eventJpaRepository.findByIdOrNullForUpdate(eventId)
                 ?.toEvent()
                 ?: throw NoSuchElementException("Event not found")

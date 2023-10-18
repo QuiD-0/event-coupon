@@ -11,4 +11,13 @@ data class UserCoupon(
 ) {
     val isUsed: Boolean
         get() = usedDate != null
+
+    fun use(): UserCoupon {
+        require(!isUsed) { "이미 사용된 쿠폰입니다." }
+        return this.copy(usedDate = LocalDate.now())
+    }
+
+    fun discount(price: Int): Int {
+        return coupon.discount(price)
+    }
 }
