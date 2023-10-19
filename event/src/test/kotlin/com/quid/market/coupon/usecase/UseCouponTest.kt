@@ -1,28 +1,22 @@
 package com.quid.market.coupon.usecase
 
 import com.quid.market.fixture.UserCouponFixture
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class UseCouponTest {
 
     private val userCouponRepository = UserCouponFixture().repository()
-    private lateinit var useCoupon: UseCoupon.UseCouponUseCase
+    private val useCoupon: UseCoupon = UseCoupon.UseCouponUseCase(userCouponRepository)
 
-    @BeforeEach
-    fun setUp() {
-        useCoupon = UseCoupon.UseCouponUseCase(userCouponRepository)
-
-        userCouponRepository.save(UserCouponFixture().userCoupon())
-    }
 
 
     @Test
     fun use() {
-        val originPrice = 10000
-        val discount = useCoupon.use(1, originPrice)
+        userCouponRepository.save(UserCouponFixture().userCoupon())
 
-        assertEquals(9000, discount)
+        useCoupon.use(1)
+
+        val usedCoupon = userCouponRepository.findById(1)
+        assert(usedCoupon.isUsed)
     }
 }

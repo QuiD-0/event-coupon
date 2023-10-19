@@ -1,10 +1,7 @@
 package com.quid.market.fixture
 
-import com.quid.market.coupon.domain.Coupon
-import com.quid.market.coupon.domain.FixedAmountCoupon
 import com.quid.market.coupon.domain.UserCoupon
 import com.quid.market.coupon.gateway.repository.UserCouponRepository
-import java.time.LocalDate
 
 class UserCouponFixture {
 
@@ -13,26 +10,21 @@ class UserCouponFixture {
     fun userCoupon() =  UserCoupon(
         id= 1,
         userId = 1,
-        coupon = Coupon(
-            id = 1L,
-            couponName = "쿠폰",
-            value = FixedAmountCoupon(1000),
-            expireDate = LocalDate.now().plusDays(7),
-        ),
+        coupon = CouponFixture().fixedAmountCoupon(),
         usedDate = null,
     )
 }
 
 class FakeUserCouponRepository: UserCouponRepository {
-    private val userCoupons = mutableListOf<UserCoupon>()
+    private val userCoupons = mutableMapOf<Long, UserCoupon>()
 
     override fun save(userCoupon: UserCoupon): UserCoupon {
-        userCoupons.add(userCoupon)
+        userCoupons[userCoupon.id!!] = userCoupon
         return userCoupon
     }
 
     override fun findByUserId(userId: Long): List<UserCoupon> {
-        return userCoupons.filter { it.userId == userId }
+        return userCoupons.values.filter { it.userId == userId }
     }
 
     override fun deleteAll() {
@@ -40,7 +32,7 @@ class FakeUserCouponRepository: UserCouponRepository {
     }
 
     override fun findById(userCouponId: Long): UserCoupon {
-        return userCoupons.first { it.id == userCouponId }
+        return userCoupons[userCouponId]!!
     }
 
 }
