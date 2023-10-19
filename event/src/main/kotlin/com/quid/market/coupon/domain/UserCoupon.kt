@@ -17,7 +17,4 @@ data class UserCoupon(
         return this.copy(usedDate = LocalDate.now())
     }
 
-    fun discount(price: Int): Int {
-        return coupon.discount(price)
-    }
 }
