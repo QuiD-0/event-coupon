@@ -12,6 +12,7 @@ interface UserCouponRepository {
     fun findByUserId(userId: Long): List<UserCoupon>
     fun deleteAll()
     fun findById(userCouponId: Long): UserCoupon
+    fun findByIdForUpdate(userCouponId: Long): UserCoupon
 
     @Repository
     class UserCouponRepositoryImpl(
@@ -32,6 +33,11 @@ interface UserCouponRepository {
 
         override fun findById(userCouponId: Long): UserCoupon =
             userCouponJpaRepository.findByIdOrNull(userCouponId)
+                ?.toUserCoupon()
+                ?: throw NoSuchElementException("쿠폰이 존재하지 않습니다.")
+
+        override fun findByIdForUpdate(userCouponId: Long): UserCoupon =
+            userCouponJpaRepository.findByIdOrNullForUpdate(userCouponId)
                 ?.toUserCoupon()
                 ?: throw NoSuchElementException("쿠폰이 존재하지 않습니다.")
     }
