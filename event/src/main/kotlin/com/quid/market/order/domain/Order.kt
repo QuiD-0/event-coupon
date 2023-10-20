@@ -1,19 +1,15 @@
 package com.quid.market.order.domain
 
-import com.quid.market.coupon.domain.UserCoupon
+import com.quid.market.order.usecase.RequestOrder
 import java.time.LocalDateTime
 
 data class Order(
-    val id: Long,
+    val id: Long? = null,
     val userId: Long,
     val originPrice: Int,
-    val userCoupon: UserCoupon? = null,
-    val itemList: List<String>,
-    val regDate : LocalDateTime,
+    val paymentPrice: Int,
+    val itemList: List<RequestOrder.Item>,
+    val userCouponId: Long? = null,
+    val regDate : LocalDateTime = LocalDateTime.now(),
 ) {
-    val totalPrice: Int
-        get() = userCoupon
-            ?.coupon?.discount(originPrice)
-            ?: originPrice
-
 }
