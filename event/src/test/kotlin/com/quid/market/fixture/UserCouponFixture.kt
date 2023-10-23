@@ -35,4 +35,8 @@ class FakeUserCouponRepository: UserCouponRepository {
         return userCoupons[userCouponId]!!
     }
 
+    override fun findByIdForUpdate(userCouponId: Long): UserCoupon {
+        return userCoupons[userCouponId]!!
+    }
+
 }

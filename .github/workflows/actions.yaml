@@ -15,12 +15,9 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}
-
-      - name: Build with Gradle
+      - name: Check with Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: clean check build
+          arguments: clean check
           build-root-directory: ./event
 
