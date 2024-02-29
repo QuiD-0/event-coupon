@@ -1,7 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://db.jaeung.dev/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: user
+    password: password
   jpa:
     hibernate:
       ddl-auto: update
