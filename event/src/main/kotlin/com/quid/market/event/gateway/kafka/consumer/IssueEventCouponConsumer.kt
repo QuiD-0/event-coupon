@@ -11,7 +11,7 @@ class IssueEventCouponConsumer(
     private val issueEventCoupon: IssueEventCoupon
 ) {
 
-    @KafkaListener(topics = ["issue-event-coupon"])
+    @KafkaListener(topics = ["issue-event-coupon"], groupId = "event-coupon")
     fun onMessage(message: IssueCouponMessage, ack: Acknowledgment) {
         issueEventCoupon.execute(message.userId, message.eventId)
         ack.acknowledge()

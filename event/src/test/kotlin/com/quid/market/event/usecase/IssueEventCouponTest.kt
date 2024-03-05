@@ -46,6 +46,6 @@ class IssueEventCouponTest{
         }
         latch.await()
 
-        println("remain coupon count: ${eventRepository.findById(1).eventCoupon?.count}")
+        println("remain coupon count: ${eventRepository.issuedCount(1)}")
     }
 }

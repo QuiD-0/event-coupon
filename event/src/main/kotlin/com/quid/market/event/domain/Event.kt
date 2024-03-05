@@ -8,21 +8,15 @@ data class Event(
     val description: String,
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
-    val eventCoupon: EventCoupon? = null,
     val regDate: LocalDateTime = LocalDateTime.now(),
+    val couponId: Long? = null,
+    val maxCount: Int? = null
 ) {
+    fun assignCoupon(couponId: Long, maxCount: Int): Event =
+        copy(couponId = couponId, maxCount = maxCount)
+
     init {
         require(eventStartDate.isBefore(eventEndDate)) { "이벤트의 종료일은 시작일보다 빠를 수 없습니다." }
     }
 
-    fun issueCoupon(): Event {
-        requireNotNull(eventCoupon) { "등록된 쿠폰이 없습니다." }
-        require( eventStartDate.isBefore(LocalDateTime.now()) ) { "이벤트가 시작되지 않았습니다." }
-        require( eventEndDate.isAfter(LocalDateTime.now()) ) { "이벤트가 종료되었습니다." }
-        return this.copy(eventCoupon = eventCoupon)
-    }
-
-    fun assignCoupon(coupon: EventCoupon): Event {
-        return this.copy(eventCoupon = coupon)
-    }
 }

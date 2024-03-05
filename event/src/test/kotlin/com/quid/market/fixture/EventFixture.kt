@@ -1,7 +1,6 @@
 package com.quid.market.fixture
 
 import com.quid.market.event.domain.Event
-import com.quid.market.event.domain.EventCoupon
 import java.time.LocalDateTime
 
 class EventFixture {
@@ -13,9 +12,8 @@ class EventFixture {
             description = "이벤트 설명",
             eventStartDate = LocalDateTime.now().minusDays(7),
             eventEndDate = LocalDateTime.now().plusDays(7),
-            eventCoupon = EventCoupon(
-                count = 100,
-                couponId = 1L
-            ),
+            regDate = LocalDateTime.now(),
+            couponId = 1L,
+            maxCount = 100
         )
 }

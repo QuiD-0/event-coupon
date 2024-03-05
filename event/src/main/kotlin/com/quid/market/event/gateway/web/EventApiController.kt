@@ -33,7 +33,7 @@ class EventApiController(
     @PostMapping("/coupon/assign")
     @ResponseStatus(OK)
     fun assignCoupon(@RequestBody request: AssignCouponRequest): ApiResponse<Event> =
-        Success(assignCoupon.execute(request.eventId, request.eventCoupon))
+        Success(assignCoupon.execute(request.couponId, request.eventId, request.count))
 
     @PostMapping("/coupon/issue")
     @ResponseStatus(OK)

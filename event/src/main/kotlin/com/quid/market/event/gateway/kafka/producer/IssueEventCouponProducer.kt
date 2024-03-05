@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class IssueEventCouponProducer(
-    private val kafkaTemplate: KafkaTemplate<String, IssueCouponMessage>
+    private val kafkaTemplate: KafkaTemplate<String, Any>
 ) {
 
     fun send(eventId: Long, userId: Long) {

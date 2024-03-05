@@ -1,8 +1,10 @@
 package com.quid.market.event.gateway.repository
 
 import com.quid.market.event.domain.Event
+import com.quid.market.event.domain.EventCoupon
 import com.quid.market.event.gateway.repository.jpa.EventJpaRepository
 import com.quid.market.event.gateway.repository.jpa.toEventEntity
+import com.quid.market.event.gateway.repository.redis.EventCouponRedisRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -12,13 +14,16 @@ interface EventRepository {
 
     fun save(event: Event): Event
     fun findById(eventId: Long): Event
-    fun findByIdForUpdate(eventId: Long): Event
     fun findAll(pageable: Pageable): Page<Event>
     fun deleteAll()
+    fun initCount(eventId: Long)
+    fun issuedCount(eventId: Long): Int
+    fun increaseCount(eventId: Long)
 
     @Repository
     class EventRepositoryImpl(
-        val eventJpaRepository: EventJpaRepository
+        val eventJpaRepository: EventJpaRepository,
+        val eventCouponRedisRepository: EventCouponRedisRepository
     ) : EventRepository {
         override fun save(event: Event): Event =
             eventJpaRepository.save(toEventEntity(event))
@@ -29,17 +34,25 @@ interface EventRepository {
                 ?.toEvent()
                 ?: throw NoSuchElementException("Event not found")
 
-        override fun findByIdForUpdate(eventId: Long): Event =
-            eventJpaRepository.findByIdOrNullForUpdate(eventId)
-                ?.toEvent()
-                ?: throw NoSuchElementException("Event not found")
-
         override fun findAll(pageable: Pageable): Page<Event> =
             eventJpaRepository.findAll(pageable)
                 .map { it.toEvent() }
 
         override fun deleteAll() {
             eventJpaRepository.deleteAll()
+        }
+
+        override fun initCount(eventId: Long) {
+            eventCouponRedisRepository.save(EventCoupon(eventId, 0))
+        }
+
+        override fun issuedCount(eventId: Long): Int =
+            eventCouponRedisRepository.findByIdOrNull(eventId)
+                ?.count
+                ?: 0
+
+        override fun increaseCount(eventId: Long) {
+            eventCouponRedisRepository.incr(eventId)
         }
     }
 }

@@ -23,15 +23,23 @@ interface IssueEventCoupon {
     ) : IssueEventCoupon {
 
         override fun incoming(eventId: Long, userId: Long) {
+            validateCount(eventId)
+            eventRepository.increaseCount(eventId)
+
             issueEventCouponProducer.send(eventId, userId)
+        }
+
+        private fun validateCount(eventId: Long) {
+            val issuedCount = eventRepository.issuedCount(eventId)
+            val maxCount = eventRepository.findById(eventId).maxCount!!
+
+            require(issuedCount < maxCount) { "쿠폰이 모두 발급 되었습니다." }
         }
 
         @Transactional
         override fun execute(userId: Long, eventId: Long): UserCoupon =
-            eventRepository.findByIdForUpdate(eventId)
-                .issueCoupon()
-                .also { eventRepository.save(it) }
-                .let { couponRepository.findById(it.eventCoupon?.couponId!!) }
+            eventRepository.findById(eventId)
+                .let { couponRepository.findById(it.couponId!!) }
                 .let { UserCoupon(userId = userId, coupon = it) }
                 .let { userCouponRepository.save(it) }
     }

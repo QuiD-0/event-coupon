@@ -1,7 +1,6 @@
 package com.quid.market.event.gateway.repository.jpa
 
 import com.quid.market.event.domain.Event
-import com.quid.market.event.domain.EventCoupon
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -16,8 +15,8 @@ class EventEntity(
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
     val regDate: LocalDateTime,
-    val couponCount: Int? = null,
     val couponId: Long? = null,
+    val maxCount: Int? = null,
 ) {
 
     fun toEvent() = Event(
@@ -27,7 +26,8 @@ class EventEntity(
         eventStartDate = eventStartDate,
         eventEndDate = eventEndDate,
         regDate = regDate,
-        eventCoupon = couponId?.let { EventCoupon(couponId = it, count = couponCount!!) },
+        couponId = couponId,
+        maxCount = maxCount,
     )
 }
 
@@ -38,6 +38,6 @@ fun toEventEntity(event: Event) = EventEntity(
     eventStartDate = event.eventStartDate,
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
-    couponCount = event.eventCoupon?.count,
-    couponId = event.eventCoupon?.couponId,
+    couponId = event.couponId,
+    maxCount = event.maxCount,
 )

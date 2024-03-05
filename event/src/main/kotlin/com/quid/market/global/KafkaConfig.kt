@@ -6,7 +6,10 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.kafka.core.*
+import org.springframework.kafka.core.ConsumerFactory
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory
+import org.springframework.kafka.core.DefaultKafkaProducerFactory
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.springframework.kafka.support.serializer.JsonSerializer
 
@@ -18,8 +21,7 @@ class KafkaConfig {
         return KafkaTemplate(producerConfigs())
     }
 
-    @Bean
-    fun producerConfigs(): DefaultKafkaProducerFactory<String, Any> = mapOf(
+    private fun producerConfigs(): DefaultKafkaProducerFactory<String, Any> = mapOf(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to "localhost:9092",
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
             ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to JsonSerializer::class.java

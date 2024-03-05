@@ -1,8 +1,8 @@
 package com.quid.market.event.domain
 
 data class EventCoupon(
-    val count: Int,
-    val couponId: Long,
+    val eventId: Long,
+    val count: Int = 0,
 ) {
 
     init {
