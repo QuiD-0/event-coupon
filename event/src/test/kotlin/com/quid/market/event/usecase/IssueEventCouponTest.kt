@@ -1,5 +1,6 @@
 package com.quid.market.event.usecase
 
+import com.quid.market.coupon.gateway.repository.CouponRepository
 import com.quid.market.coupon.gateway.repository.UserCouponRepository
 import com.quid.market.event.gateway.kafka.producer.IssueEventCouponProducer
 import com.quid.market.event.gateway.repository.EventRepository
@@ -8,8 +9,6 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Isolation
-import org.springframework.transaction.annotation.Transactional
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
@@ -22,11 +21,13 @@ class IssueEventCouponTest{
     @Autowired
     lateinit var userCouponRepository: UserCouponRepository
     @Autowired
+    lateinit var couponRepository: CouponRepository
+    @Autowired
     lateinit var producer: IssueEventCouponProducer
 
     @Test
     fun issueEventCouponTest(){
-        val issueEventCoupon: IssueEventCoupon = IssueEventCoupon.IssueEventCouponUseCase(eventRepository, userCouponRepository, producer)
+        val issueEventCoupon: IssueEventCoupon = IssueEventCoupon.IssueEventCouponUseCase(eventRepository, couponRepository, userCouponRepository, producer)
 
         userCouponRepository.deleteAll()
         eventRepository.save(EventFixture().event)

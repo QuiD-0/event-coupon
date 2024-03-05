@@ -1,13 +1,9 @@
 package com.quid.market.event.gateway.repository.jpa
 
-import com.quid.market.coupon.gateway.repository.jpa.CouponEntity
-import com.quid.market.coupon.gateway.repository.jpa.toCouponEntity
 import com.quid.market.event.domain.Event
 import com.quid.market.event.domain.EventCoupon
 import java.time.LocalDateTime
 import javax.persistence.*
-import javax.persistence.CascadeType.MERGE
-import javax.persistence.CascadeType.PERSIST
 
 @Entity
 @Table(name = "event")
@@ -20,9 +16,8 @@ class EventEntity(
     val eventStartDate: LocalDateTime,
     val eventEndDate: LocalDateTime,
     val regDate: LocalDateTime,
-    val couponCount: Int,
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [PERSIST, MERGE])
-    val coupon: CouponEntity? = null,
+    val couponCount: Int? = null,
+    val couponId: Long? = null,
 ) {
 
     fun toEvent() = Event(
@@ -32,7 +27,7 @@ class EventEntity(
         eventStartDate = eventStartDate,
         eventEndDate = eventEndDate,
         regDate = regDate,
-        eventCoupon = EventCoupon(couponCount, coupon?.toCoupon()),
+        eventCoupon = couponId?.let { EventCoupon(couponId = it, count = couponCount!!) },
     )
 }
 
@@ -43,6 +38,6 @@ fun toEventEntity(event: Event) = EventEntity(
     eventStartDate = event.eventStartDate,
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
-    couponCount = event.eventCoupon?.count!!,
-    coupon = event.eventCoupon.coupon?.let { toCouponEntity(it) },
+    couponCount = event.eventCoupon?.count,
+    couponId = event.eventCoupon?.couponId,
 )

@@ -1,6 +1,7 @@
 package com.quid.market.event.usecase
 
 import com.quid.market.coupon.domain.UserCoupon
+import com.quid.market.coupon.gateway.repository.CouponRepository
 import com.quid.market.coupon.gateway.repository.UserCouponRepository
 import com.quid.market.event.gateway.kafka.producer.IssueEventCouponProducer
 import com.quid.market.event.gateway.repository.EventRepository
@@ -16,6 +17,7 @@ interface IssueEventCoupon {
     @Service
     class IssueEventCouponUseCase(
         val eventRepository: EventRepository,
+        val couponRepository: CouponRepository,
         val userCouponRepository: UserCouponRepository,
         val issueEventCouponProducer: IssueEventCouponProducer
     ) : IssueEventCoupon {
@@ -29,7 +31,8 @@ interface IssueEventCoupon {
             eventRepository.findByIdForUpdate(eventId)
                 .issueCoupon()
                 .also { eventRepository.save(it) }
-                .let { UserCoupon(userId = userId, coupon = it.eventCoupon?.coupon!!) }
+                .let { couponRepository.findById(it.eventCoupon?.couponId!!) }
+                .let { UserCoupon(userId = userId, coupon = it) }
                 .let { userCouponRepository.save(it) }
     }
 }
