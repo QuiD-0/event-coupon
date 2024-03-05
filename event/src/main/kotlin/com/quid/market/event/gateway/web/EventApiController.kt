@@ -1,6 +1,5 @@
 package com.quid.market.event.gateway.web
 
-import com.quid.market.coupon.domain.UserCoupon
 import com.quid.market.event.domain.Event
 import com.quid.market.event.gateway.web.request.AssignCouponRequest
 import com.quid.market.event.gateway.web.request.IssueCouponRequest
@@ -38,8 +37,8 @@ class EventApiController(
 
     @PostMapping("/coupon/issue")
     @ResponseStatus(OK)
-    fun issueCoupon(@RequestBody request: IssueCouponRequest): ApiResponse<UserCoupon> =
-        Success(issueEventCoupon.execute(request.userId, request.eventId))
+    fun issueCoupon(@RequestBody request: IssueCouponRequest): ApiResponse<Unit> =
+        Success(issueEventCoupon.incoming(request.userId, request.eventId))
 
     @GetMapping("/list")
     @ResponseStatus(OK)

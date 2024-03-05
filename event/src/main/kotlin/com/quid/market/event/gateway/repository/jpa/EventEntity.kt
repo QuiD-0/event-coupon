@@ -43,6 +43,6 @@ fun toEventEntity(event: Event) = EventEntity(
     eventStartDate = event.eventStartDate,
     eventEndDate = event.eventEndDate,
     regDate = event.regDate,
-    couponCount = event.eventCoupon.count,
+    couponCount = event.eventCoupon?.count!!,
     coupon = event.eventCoupon.coupon?.let { toCouponEntity(it) },
 )

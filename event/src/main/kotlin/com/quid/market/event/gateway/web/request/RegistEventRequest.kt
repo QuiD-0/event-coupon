@@ -13,6 +13,6 @@ data class RegistEventRequest(
         eventName = eventName,
         description = description,
         eventStartDate = eventStartDate,
-        eventEndDate = eventEndDate
+        eventEndDate = eventEndDate,
     )
 }

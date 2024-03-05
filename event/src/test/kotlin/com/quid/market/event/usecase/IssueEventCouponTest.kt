@@ -1,6 +1,7 @@
 package com.quid.market.event.usecase
 
 import com.quid.market.coupon.gateway.repository.UserCouponRepository
+import com.quid.market.event.gateway.kafka.producer.IssueEventCouponProducer
 import com.quid.market.event.gateway.repository.EventRepository
 import com.quid.market.fixture.EventFixture
 import org.junit.jupiter.api.Disabled
@@ -20,10 +21,12 @@ class IssueEventCouponTest{
     lateinit var eventRepository: EventRepository
     @Autowired
     lateinit var userCouponRepository: UserCouponRepository
+    @Autowired
+    lateinit var producer: IssueEventCouponProducer
 
     @Test
     fun issueEventCouponTest(){
-        val issueEventCoupon: IssueEventCoupon = IssueEventCoupon.IssueEventCouponUseCase(eventRepository, userCouponRepository)
+        val issueEventCoupon: IssueEventCoupon = IssueEventCoupon.IssueEventCouponUseCase(eventRepository, userCouponRepository, producer)
 
         userCouponRepository.deleteAll()
         eventRepository.save(EventFixture().event)
@@ -42,6 +45,6 @@ class IssueEventCouponTest{
         }
         latch.await()
 
-        println("remain coupon count: ${eventRepository.findById(1).eventCoupon.count}")
+        println("remain coupon count: ${eventRepository.findById(1).eventCoupon?.count}")
     }
 }
