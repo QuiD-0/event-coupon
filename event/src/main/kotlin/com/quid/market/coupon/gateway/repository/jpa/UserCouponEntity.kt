@@ -1,13 +1,15 @@
 package com.quid.market.coupon.gateway.repository.jpa
 
 import com.quid.market.coupon.domain.UserCoupon
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
 import java.time.LocalDate
-import javax.persistence.*
-import javax.persistence.FetchType.LAZY
-import javax.persistence.GenerationType.IDENTITY
+import jakarta.persistence.*
+import jakarta.persistence.FetchType.LAZY
+import jakarta.persistence.GenerationType.IDENTITY
 
 @Entity
-@Table(name = "user_coupon")
+@Table(name = "user_coupon", indexes = [Index(name = "userId_couponId_index", columnList = "userId, coupon_id")])
 class UserCouponEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)

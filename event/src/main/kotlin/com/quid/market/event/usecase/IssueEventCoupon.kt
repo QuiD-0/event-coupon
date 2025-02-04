@@ -31,8 +31,6 @@ interface IssueEventCoupon {
             issueEventCouponProducer.send(eventId, userId)
         }
 
-
-        @Transactional
         override fun execute(userId: Long, eventId: Long): UserCoupon =
             eventRepository.findById(eventId)
                 .let { couponRepository.findById(it.couponId!!) }

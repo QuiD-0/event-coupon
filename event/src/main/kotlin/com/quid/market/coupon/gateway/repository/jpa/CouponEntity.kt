@@ -2,12 +2,12 @@ package com.quid.market.coupon.gateway.repository.jpa
 
 import com.quid.market.coupon.domain.Coupon
 import com.quid.market.coupon.domain.CouponType
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType.IDENTITY
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDate
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType.IDENTITY
-import javax.persistence.Id
-import javax.persistence.Table
 
 @Entity
 @Table(name = "coupon")
