@@ -17,8 +17,7 @@ interface EventRepository {
     fun findAll(pageable: Pageable): Page<Event>
     fun deleteAll()
     fun initCount(eventId: Long)
-    fun issuedCount(eventId: Long): Int
-    fun increaseCount(eventId: Long)
+    fun increaseCount(eventId: Long): Long
 
     @Repository
     class EventRepositoryImpl(
@@ -46,13 +45,8 @@ interface EventRepository {
             eventCouponRedisRepository.save(EventCoupon(eventId, 0))
         }
 
-        override fun issuedCount(eventId: Long): Int =
-            eventCouponRedisRepository.findByIdOrNull(eventId)
-                ?.count
-                ?: 0
-
-        override fun increaseCount(eventId: Long) {
-            eventCouponRedisRepository.incr(eventId)
+        override fun increaseCount(eventId: Long): Long {
+            return eventCouponRedisRepository.incr(eventId)
         }
     }
 }

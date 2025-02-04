@@ -15,8 +15,8 @@ class EventCouponRedisRepository(
     fun findByIdOrNull(eventId: Long): EventCoupon? =
         redisTemplate.opsForHash<Long, Int>().get(KEY, eventId)?.let { EventCoupon(eventId, it) }
 
-    fun incr(eventId: Long) {
-        redisTemplate.opsForHash<Long, Int>().increment(KEY, eventId, 1)
+    fun incr(eventId: Long): Long {
+        return redisTemplate.opsForHash<Long, Int>().increment(KEY, eventId, 1)
     }
 
     companion object {
